@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MojaPremka - Ekskluzywne Konta Premium</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>MojaPremka</h1>
+                <span class="tagline">Ekskluzywne Konta Premium</span>
+            </div>
+            <nav class="nav">
+                <a href="#produkty" class="nav-link">Produkty</a>
+                <a href="#o-nas" class="nav-link">O nas</a>
+                <a href="#kontakt" class="nav-link">Kontakt</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title">Odkryj Świat Premium</h2>
+                <p class="hero-subtitle">Ekskluzywne konta z najwyższą jakością obsługi</p>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Bezpieczeństwo</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Natychmiastowa Dostawa</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-star"></i>
+                        <span>Premium Quality</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <i class="fas fa-crown"></i>
+                        <h3>Premium</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="produkty" class="products">
+            <h2 class="section-title">Nasze Produkty</h2>
+            <div class="products-grid">
+                <% products.forEach(product => { %>
+                <div class="product-card" data-product-id="<%= product.id %>">
+                    <div class="product-image">
+                        <div class="product-badge">PREMIUM</div>
+                        <div class="product-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name"><%= product.name %></h3>
+                        <p class="product-description"><%= product.description %></p>
+                        <div class="product-pricing">
+                            <span class="original-price"><%= product.originalPrice %> PLN</span>
+                            <span class="current-price"><%= product.currentPrice %> PLN</span>
+                        </div>
+                        <button class="buy-button" onclick="openPurchaseModal(<%= product.id %>, '<%= product.name %>', <%= product.currentPrice %>)">
+                            <span>Kup Teraz</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </section>
+    </div>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Finalizuj Zakup</h3>
+                <button class="close-modal" onclick="closePurchaseModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="product-summary">
+                    <div class="brand-logo">
+                        <span>mojapremka</span>
+                    </div>
+                    <div class="product-details">
+                        <h4 id="modalProductName">Premium Account</h4>
+                        <div class="price-info">
+                            <span class="discounted-price" id="modalPrice">50 PLN</span>
+                            <span class="original-price-modal">80 PLN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="important-info">
+                    <div class="warning-header">
+                        <span class="warning-icon">⚠️</span>
+                        <strong>Ten przedmiot to konto, a nie klucz. Zamiast klucza otrzymasz dostęp do nowego, indywidualnego konta na dedykowanej platformie.</strong>
+                    </div>
+                    <ul class="info-list">
+                        <li>Ten przedmiot nie podlega zwrotowi ani refundacji.</li>
+                        <li>Pełna odpowiedzialność za jego użycie spoczywa na Tobie</li>
+                        <li>Zmiany dokonane na koncie po zakupie – np. dodanie lub zmiana metody płatności lub regionu – mogą zablokować konto lub sprawić, że niektóre funkcje, takie jak udostępnianie rodzinne, będą niedostępne.</li>
+                    </ul>
+                </div>
+
+                <form id="purchaseForm">
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="discord">Nick Discord *</label>
+                        <input type="text" id="discord" name="discord" required>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h4>Metoda płatności</h4>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="card" required>
+                                <div class="payment-card">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Karta</span>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="paymentMethod" value="blik" required>
+                                <div class="payment-card">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>BLIK</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-checkboxes">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="terms" required>
+                            <span class="checkmark"></span>
+                            Akceptuję <a href="#" target="_blank">Regulamin</a>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="privacy" required>
+                            <span class="checkmark"></span>
+                            Akceptuję <a href="#" target="_blank">Politykę Prywatności</a>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="pay-button" disabled>
+                        <span>Zapłać</span>
+                        <i class="fas fa-lock"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
